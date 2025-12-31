@@ -19,11 +19,9 @@ const Associations = ({ socket, roomId, players, hostId, initialGameState, curre
         if (!state.currentWord) return;
         setHintLoading(true);
         try {
-            const baseUrl = window.location.hostname === 'localhost' 
-                ? 'http://localhost:3001' 
-                : window.location.origin;
+            const apiUrl = import.meta.env.VITE_API_URL || '/api';
             
-            const res = await fetch(`${baseUrl}/api/hint`, {
+            const res = await fetch(`${apiUrl}/hint`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ 

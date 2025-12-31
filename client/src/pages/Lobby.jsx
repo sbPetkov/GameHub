@@ -44,10 +44,8 @@ const Lobby = () => {
 
   useEffect(() => {
     // In production (docker), Nginx proxies /socket.io to the backend, so we connect to the current origin.
-    // In dev (localhost), we connect directly to port 3001.
-    const socketUrl = window.location.hostname === 'localhost' 
-        ? 'http://localhost:3001' 
-        : window.location.origin;
+    // In dev (localhost), we connect directly to port 3001 via env var.
+    const socketUrl = import.meta.env.VITE_SOCKET_URL || window.location.origin;
 
     const newSocket = io(socketUrl);
     setSocket(newSocket);

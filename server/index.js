@@ -12,7 +12,7 @@ const app = express();
 const server = http.createServer(app);
 
 // Initialize Gemini AI
-const API_KEY = 'AIzaSyAYSFbw3B7G1GwCkvMfF1lUVBP9CkUs3EA';
+const API_KEY = process.env.GEMINI_API_KEY;
 const ai = new GoogleGenAI({ apiKey: API_KEY });
 
 // Middleware
@@ -63,7 +63,7 @@ app.post('/api/hint', async (req, res) => {
 });
 
 // Register
-app.post('/register', async (req, res) => {
+app.post('/api/register', async (req, res) => {
   const { email, password, username } = req.body;
   if (!email || !password || !username) {
     return res.status(400).json({ error: 'All fields are required' });
@@ -85,7 +85,7 @@ app.post('/register', async (req, res) => {
 });
 
 // Login
-app.post('/login', async (req, res) => {
+app.post('/api/login', async (req, res) => {
   const { email, password } = req.body;
   
   try {
@@ -116,7 +116,7 @@ app.post('/login', async (req, res) => {
 });
 
 // Get User Profile (Protected)
-app.get('/me', async (req, res) => {
+app.get('/api/me', async (req, res) => {
   const authHeader = req.headers.authorization;
   if (!authHeader) return res.status(401).json({ error: 'No token provided' });
   
@@ -131,7 +131,7 @@ app.get('/me', async (req, res) => {
 });
 
 // Check Active Game
-app.get('/active-game', async (req, res) => {
+app.get('/api/active-game', async (req, res) => {
   const authHeader = req.headers.authorization;
   if (!authHeader) return res.status(401).json({ error: 'No token' });
   

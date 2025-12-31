@@ -6,8 +6,8 @@ services:
     container_name: gamehub-backend
     restart: unless-stopped
     volumes:
-      # Persist the SQLite database file
-      - ./server/gamehub.db:/app/gamehub.db
+      # Persist the SQLite database file in a data directory
+      - ./server_data:/app/data
     environment:
       - PORT=3001
       - JWT_SECRET=ProductionSecretKeyChangeThisToSomethingSecure

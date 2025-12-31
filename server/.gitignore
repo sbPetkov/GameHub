@@ -3,3 +3,4 @@ node_modules
 gamehub.db
 logs
 *.log
+data

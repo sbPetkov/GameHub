@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+  backend:
+    build: ./server
+    container_name: gamehub-backend
+    restart: unless-stopped
+    volumes:
+      # Persist the SQLite database file
+      - ./server/gamehub.db:/app/gamehub.db
+    environment:
+      - PORT=3001
+      - JWT_SECRET=ProductionSecretKeyChangeThisToSomethingSecure
+    networks:
+      - gamehub-network
+
+  frontend:
+    build: ./client
+    container_name: gamehub-frontend
+    restart: unless-stopped
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+    networks:
+      - gamehub-network
+
+networks:
+  gamehub-network:
+    driver: bridge

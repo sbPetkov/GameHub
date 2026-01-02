@@ -1,6 +1,8 @@
 const TicTacToe = require('../games/tictactoe');
 const Associations = require('../games/associations');
 const ImposterGame = require('../games/imposter');
+const ImposterQAGame = require('../games/imposterQA');
+const BalderdashGame = require('../games/balderdash');
 
 class RoomManager {
     constructor(io, ai) {
@@ -23,6 +25,12 @@ class RoomManager {
                 break;
             case 'imposter':
                 gameInstance = new ImposterGame(this.io, roomId, this.ai);
+                break;
+            case 'imposter-qa':
+                gameInstance = new ImposterQAGame(this.io, roomId, this.ai);
+                break;
+            case 'balderdash':
+                gameInstance = new BalderdashGame(this.io, roomId, this.ai);
                 break;
             default:
                 throw new Error("Unknown game type");

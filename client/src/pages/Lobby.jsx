@@ -5,6 +5,8 @@ import { AuthContext } from '../context/AuthContext';
 import TicTacToe from '../games/tictactoe/TicTacToe';
 import Associations from '../games/associations/Associations';
 import Imposter from '../games/imposter/Imposter';
+import ImposterQA from '../games/imposterQA/ImposterQA';
+import Balderdash from '../games/balderdash/Balderdash';
 
 const Lobby = () => {
   const { state } = useLocation(); // Passed from Home { gameType: 'tictactoe' } or join logic
@@ -178,6 +180,42 @@ const Lobby = () => {
                     <button onClick={leaveRoom} className="text-red-500 hover:text-red-700">Leave Room</button>
                  </div>
                  <Imposter
+                    socket={socket} 
+                    roomId={roomId} 
+                    players={players} 
+                    initialGameState={gameState}
+                    currentUser={user}
+                    onLeave={leaveRoom}
+                 />
+            </div>
+        );
+    }
+    if (gameType === 'imposter-qa') {
+         return (
+            <div className="container mx-auto px-4 py-8">
+                 <div className="flex justify-between items-center mb-4">
+                    <h1 className="text-xl font-bold">Room: {roomId}</h1>
+                    <button onClick={leaveRoom} className="text-red-500 hover:text-red-700">Leave Room</button>
+                 </div>
+                 <ImposterQA
+                    socket={socket} 
+                    roomId={roomId} 
+                    players={players} 
+                    initialGameState={gameState}
+                    currentUser={user}
+                    onLeave={leaveRoom}
+                 />
+            </div>
+        );
+    }
+    if (gameType === 'balderdash') {
+         return (
+            <div className="container mx-auto px-4 py-8">
+                 <div className="flex justify-between items-center mb-4">
+                    <h1 className="text-xl font-bold">Room: {roomId}</h1>
+                    <button onClick={leaveRoom} className="text-red-500 hover:text-red-700">Leave Room</button>
+                 </div>
+                 <Balderdash
                     socket={socket} 
                     roomId={roomId} 
                     players={players} 

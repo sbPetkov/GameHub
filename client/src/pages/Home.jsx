@@ -47,6 +47,8 @@ const Home = () => {
   const games = [
     { id: 1, title: 'Associations', description: 'Guess the word based on associations.', status: 'Available', color: 'bg-blue-500', type: 'associations' },
     { id: 4, title: 'Imposter', description: 'Find the imposter among the group.', status: 'Available', color: 'bg-purple-500', type: 'imposter' },
+    { id: 5, title: 'Imposter Q&A', description: 'Answer questions and find the odd one out.', status: 'Available', color: 'bg-pink-500', type: 'imposter-qa' },
+    { id: 6, title: 'AI Balderdash', description: 'Bluff your way with fake definitions.', status: 'Available', color: 'bg-orange-500', type: 'balderdash' },
     { id: 2, title: 'Werewolf', description: 'Find the werewolf before it is too late.', status: 'Coming Soon', color: 'bg-red-500' },
     { id: 3, title: 'Tic Tac Toe', description: 'Classic game for two players.', status: 'Available', color: 'bg-green-500', type: 'tictactoe' },
   ];

@@ -7,8 +7,21 @@ const Home = () => {
   const navigate = useNavigate();
   const { checkActiveGame, user } = useContext(AuthContext);
   const [activeGame, setActiveGame] = useState(null);
+  const [apiStatus, setApiStatus] = useState('Checking...');
 
   useEffect(() => {
+    // Health Check
+    const apiBase = import.meta.env.VITE_API_URL || (
+        import.meta.env.DEV 
+            ? `http://${window.location.hostname}:3001/api` 
+            : '/api'
+    );
+    
+    fetch(`${apiBase}/health`)
+      .then(res => res.json())
+      .then(data => setApiStatus(`Connected (${data.status})`))
+      .catch(err => setApiStatus('Disconnected (Check Server/Firewall)'));
+
     if (user) {
         checkActiveGame().then(data => {
             if (data && data.active) {
@@ -18,9 +31,11 @@ const Home = () => {
     }
 
     // Just a connection test for now
-    const socketUrl = window.location.hostname === 'localhost' 
-        ? 'http://localhost:3001' 
-        : `http://${window.location.hostname}:3001`;
+    const socketUrl = import.meta.env.VITE_SOCKET_URL || (
+        import.meta.env.DEV 
+            ? `http://${window.location.hostname}:3001` 
+            : window.location.origin
+    );
     const socket = io(socketUrl);
     socket.on('connect', () => {
       console.log('Connected to server');
@@ -31,6 +46,7 @@ const Home = () => {
 
   const games = [
     { id: 1, title: 'Associations', description: 'Guess the word based on associations.', status: 'Available', color: 'bg-blue-500', type: 'associations' },
+    { id: 4, title: 'Imposter', description: 'Find the imposter among the group.', status: 'Available', color: 'bg-purple-500', type: 'imposter' },
     { id: 2, title: 'Werewolf', description: 'Find the werewolf before it is too late.', status: 'Coming Soon', color: 'bg-red-500' },
     { id: 3, title: 'Tic Tac Toe', description: 'Classic game for two players.', status: 'Available', color: 'bg-green-500', type: 'tictactoe' },
   ];
@@ -52,7 +68,12 @@ const Home = () => {
           </div>
       )}
 
-      <h1 className="text-3xl font-bold text-gray-800 mb-8">Available Games</h1>
+      <div className="flex justify-between items-center mb-8">
+        <h1 className="text-3xl font-bold text-gray-800">Available Games</h1>
+        <span className={`text-xs px-2 py-1 rounded ${apiStatus.includes('Connected') ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}`}>
+            API: {apiStatus}
+        </span>
+      </div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {games.map((game) => (
           <div key={game.id} className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-shadow duration-300">

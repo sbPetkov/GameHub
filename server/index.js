@@ -16,8 +16,12 @@ const API_KEY = process.env.GEMINI_API_KEY;
 const ai = new GoogleGenAI({ apiKey: API_KEY });
 
 // Middleware
-app.use(cors());
+app.use(cors({ origin: '*' }));
 app.use(express.json());
+app.use((req, res, next) => {
+  console.log(`${new Date().toISOString()} - ${req.method} ${req.url} from ${req.ip}`);
+  next();
+});
 
 // Socket.io Setup
 const io = new Server(server, {
@@ -36,6 +40,10 @@ initDb().then(_db => {
 });
 
 // Routes
+
+app.get('/api/health', (req, res) => {
+  res.json({ status: 'ok', time: new Date().toISOString() });
+});
 
 // Gemini API Hint Route
 app.post('/api/hint', async (req, res) => {
@@ -157,7 +165,7 @@ app.get('/api/active-game', async (req, res) => {
 });
 
 const RoomManager = require('./managers/RoomManager');
-const roomManager = new RoomManager(io);
+const roomManager = new RoomManager(io, ai);
 
 // Socket.io Events
 io.on('connection', (socket) => {

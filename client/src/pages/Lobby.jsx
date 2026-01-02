@@ -4,6 +4,7 @@ import { io } from 'socket.io-client';
 import { AuthContext } from '../context/AuthContext';
 import TicTacToe from '../games/tictactoe/TicTacToe';
 import Associations from '../games/associations/Associations';
+import Imposter from '../games/imposter/Imposter';
 
 const Lobby = () => {
   const { state } = useLocation(); // Passed from Home { gameType: 'tictactoe' } or join logic
@@ -44,8 +45,12 @@ const Lobby = () => {
 
   useEffect(() => {
     // In production (docker), Nginx proxies /socket.io to the backend, so we connect to the current origin.
-    // In dev (localhost), we connect directly to port 3001 via env var.
-    const socketUrl = import.meta.env.VITE_SOCKET_URL || window.location.origin;
+    // In dev, we connect to port 3001 on the same hostname (localhost or local IP).
+    const socketUrl = import.meta.env.VITE_SOCKET_URL || (
+        import.meta.env.DEV 
+            ? `http://${window.location.hostname}:3001` 
+            : window.location.origin
+    );
 
     const newSocket = io(socketUrl);
     setSocket(newSocket);
@@ -158,6 +163,24 @@ const Lobby = () => {
                     roomId={roomId} 
                     players={players} 
                     hostId={hostId}
+                    initialGameState={gameState}
+                    currentUser={user}
+                    onLeave={leaveRoom}
+                 />
+            </div>
+        );
+    }
+    if (gameType === 'imposter') {
+         return (
+            <div className="container mx-auto px-4 py-8">
+                 <div className="flex justify-between items-center mb-4">
+                    <h1 className="text-xl font-bold">Room: {roomId}</h1>
+                    <button onClick={leaveRoom} className="text-red-500 hover:text-red-700">Leave Room</button>
+                 </div>
+                 <Imposter
+                    socket={socket} 
+                    roomId={roomId} 
+                    players={players} 
                     initialGameState={gameState}
                     currentUser={user}
                     onLeave={leaveRoom}

@@ -487,10 +487,19 @@ class SecretHitler {
                 return { valid: true }; // Return immediately, don't do standard cleanup
 
             case 'PEEK':
+                if (action.confirm) {
+                    // President is done looking
+                    this.pendingPower = null;
+                    this.recordTermLimits();
+                    this.advancePresident();
+                    return { valid: true };
+                }
+                
                 if (this.policyDeck.length < 3) this.reshuffle();
                 const top3 = [this.policyDeck[this.policyDeck.length-1], this.policyDeck[this.policyDeck.length-2], this.policyDeck[this.policyDeck.length-3]];
                 this.io.to(president.socketId).emit('secret_hitler_peek', top3);
-                break;
+                // Do NOT advance yet. Wait for user to click "Done".
+                return { valid: true }; // Return valid so client knows request worked, but phase doesn't change yet.
 
             case 'EXECUTION':
                 if (!target || !target.alive) return { valid: false };

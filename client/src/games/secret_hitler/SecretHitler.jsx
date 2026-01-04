@@ -125,9 +125,8 @@ const LobbyPhase = ({ players, isHost, startGame }) => (
     </div>
 );
 
-const RoleRevealPhase = ({ isHost, sendAction, myRole, showRole, setShowRole }) => (
+const RoleRevealPhase = ({ isHost, sendAction }) => (
     <div className="text-center">
-        <RoleCard myRole={myRole} showRole={showRole} setShowRole={setShowRole} />
         <p className="mb-4 text-sm text-gray-600">Memorize your role. Keep it secret.</p>
         {isHost && (
             <button 
@@ -253,12 +252,22 @@ const ExecutivePhase = ({ gameState, currentUser, sendAction, amIPresident, peek
             <div>
                 {gameState.pendingPower === 'PEEK' && (
                     <div>
-                         <button onClick={() => sendAction('EXECUTIVE_ACTION', { powerType: 'PEEK' })} className="bg-purple-600 text-white px-4 py-2 rounded">Peek Top 3</button>
+                         {peekData.length === 0 && (
+                             <button onClick={() => sendAction('EXECUTIVE_ACTION', { powerType: 'PEEK' })} className="bg-purple-600 text-white px-4 py-2 rounded">Peek Top 3</button>
+                         )}
                          {peekData.length > 0 && (
-                            <div className="mt-4 flex justify-center gap-2">
-                                {peekData.map((c, i) => (
-                                    <div key={i} className={`p-2 border rounded ${c==='LIBERAL'?'bg-blue-100':'bg-red-100'}`}>{c}</div>
-                                ))}
+                            <div className="mt-4 flex flex-col items-center gap-2">
+                                <div className="flex justify-center gap-2">
+                                    {peekData.map((c, i) => (
+                                        <div key={i} className={`w-20 h-28 flex items-center justify-center border-4 rounded font-bold ${c==='LIBERAL'?'bg-blue-100 border-blue-500 text-blue-700':'bg-red-100 border-red-500 text-red-700'}`}>{c}</div>
+                                    ))}
+                                </div>
+                                <button 
+                                    onClick={() => sendAction('EXECUTIVE_ACTION', { powerType: 'PEEK', confirm: true })} 
+                                    className="mt-4 bg-gray-600 text-white px-4 py-2 rounded"
+                                >
+                                    Done
+                                </button>
                             </div>
                          )}
                     </div>
@@ -411,7 +420,7 @@ const SecretHitler = ({ socket, roomId, players, initialGameState, currentUser, 
                             <LobbyPhase players={players} isHost={isHost} startGame={startGame} />
                         )}
                         {gameState.phase === 'ROLE_REVEAL' && (
-                            <RoleRevealPhase isHost={isHost} sendAction={sendAction} myRole={myRole} showRole={showRole} setShowRole={setShowRole} />
+                            <RoleRevealPhase isHost={isHost} sendAction={sendAction} />
                         )}
                         {gameState.phase === 'ELECTION_NOMINATION' && (
                             <NominationPhase gameState={gameState} currentUser={currentUser} sendAction={sendAction} amIPresident={amIPresident} />

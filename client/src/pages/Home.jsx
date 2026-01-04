@@ -49,6 +49,7 @@ const Home = () => {
     { id: 4, title: 'Imposter', description: 'Find the imposter among the group.', status: 'Available', color: 'bg-purple-500', type: 'imposter' },
     { id: 5, title: 'Imposter Q&A', description: 'Answer questions and find the odd one out.', status: 'Available', color: 'bg-pink-500', type: 'imposter-qa' },
     { id: 6, title: 'AI Balderdash', description: 'Bluff your way with fake definitions.', status: 'Available', color: 'bg-orange-500', type: 'balderdash' },
+    { id: 7, title: 'Secret Hitler', description: 'Social deduction and political intrigue.', status: 'Available', color: 'bg-red-800', type: 'secret_hitler' },
     { id: 2, title: 'Werewolf', description: 'Find the werewolf before it is too late.', status: 'Coming Soon', color: 'bg-red-500' },
     { id: 3, title: 'Tic Tac Toe', description: 'Classic game for two players.', status: 'Available', color: 'bg-green-500', type: 'tictactoe' },
   ];

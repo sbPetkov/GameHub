@@ -4,6 +4,8 @@ const ImposterGame = require('../games/imposter');
 const ImposterQAGame = require('../games/imposterQA');
 const BalderdashGame = require('../games/balderdash');
 const SecretHitler = require('../games/secret_hitler');
+const Werewolf = require('../games/werewolf');
+const CodebreakersGame = require('../games/codebreakers');
 
 class RoomManager {
     constructor(io, ai) {
@@ -35,6 +37,12 @@ class RoomManager {
                 break;
             case 'secret_hitler':
                 gameInstance = new SecretHitler(this.io, roomId);
+                break;
+            case 'werewolf':
+                gameInstance = new Werewolf(this.io, roomId);
+                break;
+            case 'codebreakers':
+                gameInstance = new CodebreakersGame(this.io, roomId, this.ai);
                 break;
             default:
                 throw new Error("Unknown game type");
@@ -108,7 +116,7 @@ class RoomManager {
         }
 
         // Add player to game logic to assign role/symbol
-        const symbol = room.game.addPlayer(socket.id);
+        const symbol = room.game.addPlayer(socket.id, username);
         
         const player = { socketId: socket.id, username, symbol, connected: true };
         room.players.push(player);

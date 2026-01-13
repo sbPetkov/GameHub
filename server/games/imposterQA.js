@@ -179,6 +179,7 @@ class ImposterQAGame {
     vote(voterId, targetId) {
         if (this.state !== 'PLAYING') return;
         if (voterId === targetId) return;
+        if (!this.players[voterId]) return; // Safety check
 
         this.votes[voterId] = targetId;
         this.players[voterId].vote = targetId;

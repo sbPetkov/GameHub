@@ -184,6 +184,7 @@ class BalderdashGame {
         
         // Prevent voting for self (optional, but good rule)
         if (targetId === voterId) return; 
+        if (!this.players[voterId]) return; // Safety check
 
         this.votes[voterId] = targetId;
         this.players[voterId].vote = targetId;

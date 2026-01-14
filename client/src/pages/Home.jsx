@@ -52,6 +52,8 @@ const Home = () => {
     { id: 7, title: 'Secret Hitler', description: 'Social deduction and political intrigue.', status: 'Available', color: 'bg-red-800', type: 'secret_hitler' },
     { id: 2, title: 'Werewolf', description: 'Find the werewolf before it is too late.', status: 'Available', color: 'bg-red-500', type: 'werewolf' },
     { id: 8, title: 'Codebreakers', description: 'Team strategy word game with AI.', status: 'Available', color: 'bg-indigo-600', type: 'codebreakers' },
+    { id: 9, title: 'Codebreakers (Images)', description: 'Team strategy game with images.', status: 'Available', color: 'bg-indigo-500', type: 'codebreakers_images' },
+    { id: 10, title: 'Codebreakers (Upload)', description: 'Use your own photos!', status: 'Available', color: 'bg-indigo-400', type: 'codebreakers_custom' },
     { id: 3, title: 'Tic Tac Toe', description: 'Classic game for two players.', status: 'Available', color: 'bg-green-500', type: 'tictactoe' },
   ];
 

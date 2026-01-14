@@ -1,6 +1,11 @@
 require('dotenv').config();
 const express = require('express');
 const http = require('http');
+const path = require('path');
+const fs = require('fs');
+const multer = require('multer');
+const sharp = require('sharp');
+const heicConvert = require('heic-convert');
 const { Server } = require('socket.io');
 const cors = require('cors');
 const bcrypt = require('bcrypt');
@@ -22,6 +27,10 @@ app.use((req, res, next) => {
   console.log(`${new Date().toISOString()} - ${req.method} ${req.url} from ${req.ip}`);
   next();
 });
+
+// Serve Images for games
+app.use('/images', express.static(path.join(__dirname, 'Images')));
+app.use('/uploads', express.static(path.join(__dirname, 'data/uploads')));
 
 // Socket.io Setup
 const io = new Server(server, {
@@ -162,6 +171,93 @@ app.get('/api/active-game', async (req, res) => {
   } catch (err) {
     res.status(401).json({ error: 'Invalid token' });
   }
+});
+
+// File Upload for Custom Games
+const upload = multer({ 
+    storage: multer.memoryStorage(),
+    limits: { fileSize: 10 * 1024 * 1024 }, // 10MB limit
+    fileFilter: (req, file, cb) => {
+        if (file.mimetype.startsWith('image/')) {
+            cb(null, true);
+        } else {
+            cb(new Error('Only images are allowed (no videos or documents)'), false);
+        }
+    }
+});
+
+app.post('/api/upload-game-images', upload.array('files', 10), async (req, res) => {
+    const { roomId, username } = req.body;
+    
+    if (!roomId || !username || !req.files || req.files.length === 0) {
+        return res.status(400).json({ error: 'Missing required fields' });
+    }
+
+    const room = roomManager.getRoom(roomId);
+    if (!room) {
+        return res.status(404).json({ error: 'Room not found' });
+    }
+
+    // Check if game supports uploads
+    if (typeof room.game.handleImageUpload !== 'function') {
+        return res.status(400).json({ error: 'Game does not support uploads' });
+    }
+
+    const uploadDir = path.join(__dirname, 'data/uploads', roomId);
+    if (!fs.existsSync(uploadDir)) {
+        fs.mkdirSync(uploadDir, { recursive: true });
+    }
+
+    const processedFiles = [];
+
+    try {
+        for (const file of req.files) {
+            const filename = `${Date.now()}-${Math.round(Math.random() * 1E9)}.jpg`;
+            const filepath = path.join(uploadDir, filename);
+
+            let inputBuffer = file.buffer;
+
+            // Check if HEIC
+            const isHeic = file.mimetype === 'image/heic' || 
+                           file.mimetype === 'image/heif' || 
+                           file.originalname.toLowerCase().endsWith('.heic') || 
+                           file.originalname.toLowerCase().endsWith('.heif');
+
+            if (isHeic) {
+                try {
+                    inputBuffer = await heicConvert({
+                        buffer: file.buffer,
+                        format: 'JPEG',
+                        quality: 1
+                    });
+                } catch (convErr) {
+                    console.error("HEIC conversion failed", convErr);
+                    // If simple conversion fails, try passing original to sharp as fallback or skip
+                    continue; 
+                }
+            }
+
+            // Process image: Resize to max 1024x1024, convert to JPEG
+            await sharp(inputBuffer)
+                .rotate() // Auto-rotate based on EXIF
+                .resize({ width: 1024, height: 1024, fit: 'inside', withoutEnlargement: true })
+                .jpeg({ quality: 80 })
+                .toFile(filepath);
+
+            processedFiles.push(`${roomId}/${filename}`);
+        }
+
+        // Notify Game Logic
+        room.game.handleImageUpload(username, processedFiles);
+        
+        // Notify Room (Game logic usually emits update, but we might want explicit ack here or just rely on game update)
+        // CodebreakersCustom should emit 'game_update' inside handleImageUpload.
+
+        res.json({ success: true, count: processedFiles.length });
+    } catch (err) {
+        console.error('Image processing error:', err);
+        res.status(500).json({ error: 'Failed to process images' });
+    }
 });
 
 const RoomManager = require('./managers/RoomManager');

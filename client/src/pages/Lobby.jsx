@@ -10,6 +10,8 @@ import Balderdash from '../games/balderdash/Balderdash';
 import SecretHitler from '../games/secret_hitler/SecretHitler';
 import Werewolf from '../games/werewolf/Werewolf';
 import Codebreakers from '../games/codebreakers/Codebreakers';
+import CodebreakersImages from '../games/codebreakers_images/CodebreakersImages';
+import CodebreakersCustom from '../games/codebreakers_custom/CodebreakersCustom';
 
 const Lobby = () => {
   const { state } = useLocation(); // Passed from Home { gameType: 'tictactoe' } or join logic
@@ -273,6 +275,42 @@ const Lobby = () => {
                     <button onClick={leaveRoom} className="text-red-500 hover:text-red-700">Leave Room</button>
                  </div>
                  <Codebreakers
+                    socket={socket} 
+                    roomId={roomId} 
+                    players={players} 
+                    initialGameState={gameState}
+                    currentUser={user}
+                    onLeave={leaveRoom}
+                 />
+            </div>
+        );
+    }
+    if (gameType === 'codebreakers_images') {
+         return (
+            <div className="container mx-auto px-4 py-8">
+                 <div className="flex justify-between items-center mb-4">
+                    <h1 className="text-xl font-bold">Room: {roomId}</h1>
+                    <button onClick={leaveRoom} className="text-red-500 hover:text-red-700">Leave Room</button>
+                 </div>
+                 <CodebreakersImages
+                    socket={socket} 
+                    roomId={roomId} 
+                    players={players} 
+                    initialGameState={gameState}
+                    currentUser={user}
+                    onLeave={leaveRoom}
+                 />
+            </div>
+        );
+    }
+    if (gameType === 'codebreakers_custom') {
+         return (
+            <div className="container mx-auto px-4 py-8">
+                 <div className="flex justify-between items-center mb-4">
+                    <h1 className="text-xl font-bold">Room: {roomId}</h1>
+                    <button onClick={leaveRoom} className="text-red-500 hover:text-red-700">Leave Room</button>
+                 </div>
+                 <CodebreakersCustom
                     socket={socket} 
                     roomId={roomId} 
                     players={players} 

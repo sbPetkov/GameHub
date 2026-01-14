@@ -6,6 +6,10 @@ const BalderdashGame = require('../games/balderdash');
 const SecretHitler = require('../games/secret_hitler');
 const Werewolf = require('../games/werewolf');
 const CodebreakersGame = require('../games/codebreakers');
+const CodebreakersImagesGame = require('../games/codebreakers_images');
+const CodebreakersCustomGame = require('../games/codebreakers_custom');
+const fs = require('fs');
+const path = require('path');
 
 class RoomManager {
     constructor(io, ai) {
@@ -43,6 +47,12 @@ class RoomManager {
                 break;
             case 'codebreakers':
                 gameInstance = new CodebreakersGame(this.io, roomId, this.ai);
+                break;
+            case 'codebreakers_images':
+                gameInstance = new CodebreakersImagesGame(this.io, roomId, this.ai);
+                break;
+            case 'codebreakers_custom':
+                gameInstance = new CodebreakersCustomGame(this.io, roomId, this.ai);
                 break;
             default:
                 throw new Error("Unknown game type");
@@ -184,6 +194,12 @@ class RoomManager {
 
             // If room empty, delete it
             if (room.players.length === 0) {
+                // Cleanup Uploads if exist
+                const uploadDir = path.join(__dirname, '../data/uploads', roomId);
+                if (fs.existsSync(uploadDir)) {
+                    fs.rmSync(uploadDir, { recursive: true, force: true });
+                    console.log(`Cleaned up uploads for room ${roomId}`);
+                }
                 this.rooms.delete(roomId);
             } else {
                 // Notify remaining players

@@ -12,6 +12,7 @@ import Werewolf from '../games/werewolf/Werewolf';
 import Codebreakers from '../games/codebreakers/Codebreakers';
 import CodebreakersImages from '../games/codebreakers_images/CodebreakersImages';
 import CodebreakersCustom from '../games/codebreakers_custom/CodebreakersCustom';
+import CloseEnough from '../games/close_enough/CloseEnough';
 
 const Lobby = () => {
   const { state } = useLocation(); // Passed from Home { gameType: 'tictactoe' } or join logic
@@ -311,6 +312,24 @@ const Lobby = () => {
                     <button onClick={leaveRoom} className="text-red-500 hover:text-red-700">Leave Room</button>
                  </div>
                  <CodebreakersCustom
+                    socket={socket} 
+                    roomId={roomId} 
+                    players={players} 
+                    initialGameState={gameState}
+                    currentUser={user}
+                    onLeave={leaveRoom}
+                 />
+            </div>
+        );
+    }
+    if (gameType === 'close_enough') {
+         return (
+            <div className="container mx-auto px-4 py-8">
+                 <div className="flex justify-between items-center mb-4">
+                    <h1 className="text-xl font-bold">Room: {roomId}</h1>
+                    <button onClick={leaveRoom} className="text-red-500 hover:text-red-700">Leave Room</button>
+                 </div>
+                 <CloseEnough
                     socket={socket} 
                     roomId={roomId} 
                     players={players} 

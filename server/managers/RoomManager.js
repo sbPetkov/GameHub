@@ -8,6 +8,7 @@ const Werewolf = require('../games/werewolf');
 const CodebreakersGame = require('../games/codebreakers');
 const CodebreakersImagesGame = require('../games/codebreakers_images');
 const CodebreakersCustomGame = require('../games/codebreakers_custom');
+const CloseEnoughGame = require('../games/close_enough');
 const fs = require('fs');
 const path = require('path');
 
@@ -53,6 +54,9 @@ class RoomManager {
                 break;
             case 'codebreakers_custom':
                 gameInstance = new CodebreakersCustomGame(this.io, roomId, this.ai);
+                break;
+            case 'close_enough':
+                gameInstance = new CloseEnoughGame(this.io, roomId);
                 break;
             default:
                 throw new Error("Unknown game type");

@@ -54,6 +54,7 @@ const Home = () => {
     { id: 8, title: 'Codebreakers', description: 'Team strategy word game with AI.', status: 'Available', color: 'bg-indigo-600', type: 'codebreakers' },
     { id: 9, title: 'Codebreakers (Images)', description: 'Team strategy game with images.', status: 'Available', color: 'bg-indigo-500', type: 'codebreakers_images' },
     { id: 10, title: 'Codebreakers (Upload)', description: 'Use your own photos!', status: 'Available', color: 'bg-indigo-400', type: 'codebreakers_custom' },
+    { id: 11, title: 'Close Enough', description: 'Spin the wheel, guess music & movies!', status: 'Available', color: 'bg-pink-600', type: 'close_enough' },
     { id: 3, title: 'Tic Tac Toe', description: 'Classic game for two players.', status: 'Available', color: 'bg-green-500', type: 'tictactoe' },
   ];
 

@@ -1,0 +1,158 @@
+[
+  {
+    "id": "ae804b71-62ba-4afb-b177-4f89d2c55955",
+    "artist": "Nirvana",
+    "song": "Smells Like Teen Spirit (Official Music Video)",
+    "file": "songs/Smells Like Teen Spirit (Official Music Video).wav"
+  },
+  {
+    "id": "ad97c861-e69e-44c7-9f99-5932c70d1ce7",
+    "artist": "@Azis",
+    "song": "LEDENA KRALICA (LIVE 2020) / Азис - Ледена кралица",
+    "file": "songs/LEDENA KRALICA (LIVE 2020) _ Азис - Ледена кралица.wav"
+  },
+  {
+    "id": "fd22c637-2db9-4dad-b5e5-fff9b2df9334",
+    "artist": "Green Day",
+    "song": "Boulevard of Broken Dreams",
+    "file": "songs/Boulevard of Broken Dreams.wav"
+  },
+  {
+    "id": "2ce79485-5d9d-453d-afa2-13572387ce42",
+    "artist": "Динго и Асан Баба",
+    "song": "Кючек Кораба",
+    "file": "songs/Кючек Кораба.wav"
+  },
+  {
+    "id": "241a2a26-eeaf-49ce-9ad0-d0210a1e8637",
+    "artist": "Изомрудъ",
+    "song": "Азбуката",
+    "file": "songs/Азбуката.wav"
+  },
+  {
+    "id": "1a1b1475-99fb-45ff-88de-cfa178cc0f45",
+    "artist": "Тодор Колев",
+    "song": "Фалшив герой",
+    "file": "songs/Фалшив герой.wav"
+  },
+  {
+    "id": "4b9b6faa-6eb1-46c5-808a-9ba49ca5e34e",
+    "artist": "Κωνσταντίνος Αργυρός",
+    "song": "Ξηмеρώματα | Konstantinos Argiros - Ksimeromata - Official Video Clip",
+    "file": "ximeromata.wav"
+  },
+  {
+    "id": "2d74a2bd-b40d-44a8-a30f-61a64c36b391",
+    "artist": "Rihanna",
+    "song": "Diamonds",
+    "file": "songs/Diamonds.wav"
+  },
+  {
+    "id": "b40baa0d-9448-48cb-9013-585f0140ca6f",
+    "artist": "Ne-Yo",
+    "song": "Miss Independent",
+    "file": "songs/Miss Independent.wav"
+  },
+  {
+    "id": "36921075-7561-4b71-8d6d-0bb524cff4fe",
+    "artist": "Teddy Swims",
+    "song": "Lose Control",
+    "file": "songs/Lose Control.wav"
+  },
+  {
+    "id": "4b231ec8-d336-4cb7-bc2f-ebb157bb5184",
+    "artist": "GALENA х AZIS",
+    "song": "PО, PО, PО | Галена х Азис - По, По, По",
+    "file": "songs/PО, PО, PО _ Галена х Азис - По, По, По.wav"
+  },
+  {
+    "id": "54a86066-68ef-4654-9108-2a19985839a0",
+    "artist": "Стефан Вълдобрев и Обичайните заподозрени",
+    "song": "По-полека",
+    "file": "songs/По-полека.wav"
+  },
+  {
+    "id": "95b0b273-26dd-472b-a613-8832f4a8fa68",
+    "artist": "Б.Т.Р.",
+    "song": "Елмаз и Стъкло - Official",
+    "file": "songs/Елмаз и Стъкло - Official.wav"
+  },
+  {
+    "id": "acc8ab78-2ba8-4e6b-8adc-dbdd06eaae48",
+    "artist": "P.I.F.",
+    "song": "Prikazka",
+    "file": "songs/Prikazka.wav"
+  },
+  {
+    "id": "805a17c3-2fda-4417-8fcc-db5847f6c104",
+    "artist": "UMORENI KRILA",
+    "song": "Dimitar & Hristo ft. Ivan Lechev | УМОРЕНИ КРИЛА - Димитър & Христо ft. Иван Лечев",
+    "file": "songs/Dimitar & Hristo ft. Ivan Lechev _ УМОРЕНИ КРИЛА - Димитър & Христо ft. Иван Лечев.wav"
+  },
+  {
+    "id": "e2af41cd-c56c-47d9-9eb4-e3eeecaca58e",
+    "artist": "Rammstein",
+    "song": "Deutschland",
+    "file": "songs/Deutschland.wav"
+  },
+  {
+    "id": "e538feb9-6e67-401c-8528-612fc85f1c50",
+    "artist": "ANDREA ft. COSTI",
+    "song": "Upotrebena  |  АНДРЕА feat. COSTI - Употребена | Official Music Video 2009",
+    "file": "songs/Upotrebena  _  АНДРЕА feat. COSTI - Употребена _ Official Music Video 2009.wav"
+  },
+  {
+    "id": "3cbd1d0b-bd9e-4fc3-a4c5-f23a0bf00470",
+    "artist": "VANE$$A feat. SOFI MARINOVA",
+    "song": "VANESA REJE, REJE / ВАНЕСА РЕЖЕ, РЕЖЕ  2025",
+    "file": "songs/VANESA REJE, REJE _ ВАНЕСА РЕЖЕ, РЕЖЕ  2025.wav"
+  },
+  {
+    "id": "2e5002fe-0462-48cd-bdc1-3ff8654609ed",
+    "artist": "KONDIO",
+    "song": "ZHIV SAM / КОНДЬО - Жив съм",
+    "file": "songs/ZHIV SAM _ КОНДЬО - Жив съм.wav"
+  },
+  {
+    "id": "650ca9b0-e019-4e77-a3c6-0c1410d1e50a",
+    "artist": "KONDIO",
+    "song": "DOKO, DOKO  / КОНДЬО - Доко, Доко",
+    "file": "songs/DOKO, DOKO  _ КОНДЬО - Доко, Доко.wav"
+  },
+  {
+    "id": "81d551f7-7b95-4f58-b626-5c14fd686358",
+    "artist": "ADRIAN MINUNE",
+    "song": "Danseaza",
+    "file": "songs/Danseaza.wav"
+  },
+  {
+    "id": "49823438-e482-44cf-b144-df2f63dc5aa2",
+    "artist": "AZIS",
+    "song": "HABIBI / АЗИС - Хабиби",
+    "file": "songs/HABIBI _ АЗИС - Хабиби.wav"
+  },
+  {
+    "id": "08985b0e-79aa-4019-94d7-4fe295a85ebe",
+    "artist": "Eminem",
+    "song": "Rap God",
+    "file": "songs/Rap God.wav"
+  },
+  {
+    "id": "ab33e76d-8e94-4ece-a0f8-c83099f02ee7",
+    "artist": "Shakira",
+    "song": "Waka Waka",
+    "file": "songs/Waka Waka.wav"
+  },
+  {
+    "id": "1d61c163-5e52-4a77-ba8d-684ae0bd40bb",
+    "artist": "Beyoncé",
+    "song": "Diva",
+    "file": "songs/Diva.wav"
+  },
+  {
+    "id": "24a63cc3-8644-4f97-96f1-67c21f46a8f0",
+    "artist": "GALENA",
+    "song": "22:22  |  Галена - 22:22",
+    "file": "songs/22_22  _  Галена - 22_22.wav"
+  }
+]

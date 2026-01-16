@@ -1,0 +1,252 @@
+[
+  {
+    "id": "movie_001",
+    "movie": "Schindler's List",
+    "emojis": "👨‍💼📋✡️🇩🇪"
+  },
+  {
+    "id": "movie_002",
+    "movie": "The Godfather",
+    "emojis": "🤵🔫🍝🇮🇹"
+  },
+  {
+    "id": "movie_003",
+    "movie": "Interstellar",
+    "emojis": "🚀🌌⏰🕳️"
+  },
+  {
+    "id": "movie_004",
+    "movie": "Forrest Gump",
+    "emojis": "🏃‍♂️🍫🪶🇺🇸"
+  },
+  {
+    "id": "movie_005",
+    "movie": "Gladiator",
+    "emojis": "⚔️🏛️🦁👑"
+  },
+  {
+    "id": "movie_006",
+    "movie": "Jurassic Park",
+    "emojis": "🦖🧬🏝️🚁"
+  },
+  {
+    "id": "movie_007",
+    "movie": "Fight Club",
+    "emojis": "👊🧼💥🧠"
+  },
+  {
+    "id": "movie_008",
+    "movie": "Home Alone",
+    "emojis": "🏠👦🎄🪤"
+  },
+  {
+    "id": "movie_009",
+    "movie": "Pirates of the Caribbean",
+    "emojis": "🏴‍☠️⚓💀🗺️"
+  },
+  {
+    "id": "movie_010",
+    "movie": "The Lord of the Rings",
+    "emojis": "💍🧙‍♂️⛰️🔥"
+  },
+  {
+    "id": "movie_011",
+    "movie": "Inception",
+    "emojis": "😴🌀🎩⏳"
+  },
+  {
+    "id": "movie_012",
+    "movie": "The Lion King",
+    "emojis": "🦁👑🌅🐗"
+  },
+  {
+    "id": "movie_013",
+    "movie": "The Terminator",
+    "emojis": "🤖💪⏳🔫"
+  },
+  {
+    "id": "movie_014",
+    "movie": "Frozen",
+    "emojis": "❄️👸☃️🎶"
+  },
+  {
+    "id": "movie_015",
+    "movie": "Joker",
+    "emojis": "🃏😈💃🎭"
+  },
+  {
+    "id": "movie_016",
+    "movie": "E.T. the Extra-Terrestrial",
+    "emojis": "👽🚲🌙✨"
+  },
+  {
+    "id": "movie_017",
+    "movie": "The Silence of the Lambs",
+    "emojis": "🦋🔪👁️🧠"
+  },
+  {
+    "id": "movie_018",
+    "movie": "Titanic",
+    "emojis": "🚢❄️💔🌊"
+  },
+  {
+    "id": "movie_019",
+    "movie": "Harry Potter",
+    "emojis": "⚡🪄🦉📖"
+  },
+  {
+    "id": "movie_020",
+    "movie": "Star Wars",
+    "emojis": "⭐⚔️🌌🚀"
+  },
+  {
+    "id": "movie_021",
+    "movie": "Back to the Future",
+    "emojis": "🚗⚡⏰"
+  },
+  {
+    "id": "movie_022",
+    "movie": "Rain Man",
+    "emojis": "💰☔🎰"
+  },
+  {
+    "id": "movie_023",
+    "movie": "Avatar",
+    "emojis": "💙🌳👽"
+  },
+  {
+    "id": "movie_024",
+    "movie": "Jurassic Park",
+    "emojis": "🦖🧬🏝️"
+  },
+  {
+    "id": "movie_025",
+    "movie": "The Matrix",
+    "emojis": "🕶️💊🖥️"
+  },
+  {
+    "id": "movie_026",
+    "movie": "The Shawshank Redemption",
+    "emojis": "⛓️🔨🕊️"
+  },
+  {
+    "id": "movie_027",
+    "movie": "Finding Nemo",
+    "emojis": "🐠🌊🦈"
+  },
+  {
+    "id": "movie_028",
+    "movie": "Pirates of the Caribbean",
+    "emojis": "☠️🍻🗺️"
+  },
+  {
+    "id": "movie_029",
+    "movie": "The Dark Knight",
+    "emojis": "🦇🃏🌃"
+  },
+  {
+    "id": "movie_030",
+    "movie": "Saving Private Ryan",
+    "emojis": "🪖⚔️🎖️"
+  },
+  {
+    "id": "movie_031",
+    "movie": "Pulp Fiction",
+    "emojis": "🔫💼🍔"
+  },
+  {
+    "id": "movie_032",
+    "movie": "The Imitation Game",
+    "emojis": "🔐💻🕵️"
+  },
+  {
+    "id": "movie_033",
+    "movie": "The Hunger Games",
+    "emojis": "🏹🔥🎯"
+  },
+  {
+    "id": "movie_034",
+    "movie": "Gravity",
+    "emojis": "🚀🌍👩‍🚀"
+  },
+  {
+    "id": "movie_035",
+    "movie": "The Sixth Sense",
+    "emojis": "👻👦🔴"
+  },
+  {
+    "id": "movie_036",
+    "movie": "Jaws",
+    "emojis": "🦈🩸🏖️"
+  },
+  {
+    "id": "movie_037",
+    "movie": "The Green Mile",
+    "emojis": "⚡💡🐭"
+  },
+  {
+    "id": "movie_038",
+    "movie": "The Social Network",
+    "emojis": "💻👥🎓"
+  },
+  {
+    "id": "movie_039",
+    "movie": "Escape from Alcatraz",
+    "emojis": "🏝️⛓️🚤"
+  },
+  {
+    "id": "movie_040",
+    "movie": "Eternal Sunshine of the Spotless Mind",
+    "emojis": "💔🧠🏔️"
+  },
+  {
+    "id": "movie_041",
+    "movie": "Excalibur",
+    "emojis": "👑⚔️🧙‍♀️"
+  },
+  {
+    "id": "movie_042",
+    "movie": "300",
+    "emojis": "⚔️🛡️🏛️"
+  },
+  {
+    "id": "movie_043",
+    "movie": "The Avengers",
+    "emojis": "🦸‍♂️💎🔨"
+  },
+  {
+    "id": "movie_044",
+    "movie": "The Prestige",
+    "emojis": "🎩✨🔮"
+  },
+  {
+    "id": "movie_045",
+    "movie": "American Beauty",
+    "emojis": "🌹🎥🏡"
+  },
+  {
+    "id": "movie_046",
+    "movie": "Casablanca",
+    "emojis": "✈️🎹💔"
+  },
+  {
+    "id": "movie_047",
+    "movie": "La La Land",
+    "emojis": "🎭🎵⭐"
+  },
+  {
+    "id": "movie_048",
+    "movie": "Blade Runner",
+    "emojis": "🤖🌧️🔫"
+  },
+  {
+    "id": "movie_049",
+    "movie": "The Grand Budapest Hotel",
+    "emojis": "🏨🎨🍰"
+  },
+  {
+    "id": "movie_050",
+    "movie": "The Notebook",
+    "emojis": "💍👰💒"
+  }
+]

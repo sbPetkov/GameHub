@@ -3,4 +3,5 @@ node_modules
 gamehub.db
 logs
 *.log
-data
+data/*
+!data/close_enough/

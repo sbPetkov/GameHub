@@ -38,17 +38,24 @@ class CloseEnoughGame {
     loadMapping() {
         const mapping = { songs: [], movies: [], real_or_fake: [], trivia: [] };
         const categories = Object.keys(mapping);
-        const baseDir = path.join(__dirname, '../data/close_enough');
+        // Use environment variable if provided, otherwise fallback to local path
+        const baseDir = process.env.CLOSE_ENOUGH_DATA_PATH || path.join(__dirname, '../data/close_enough');
+
+        console.log(`[CloseEnough] Loading mapping from: ${baseDir}`);
 
         categories.forEach(cat => {
             try {
                 const catPath = path.join(baseDir, cat, `${cat}.json`);
+                console.log(`[CloseEnough] Checking for file: ${catPath}`);
                 if (fs.existsSync(catPath)) {
                     const data = JSON.parse(fs.readFileSync(catPath, 'utf8'));
                     mapping[cat] = data;
+                    console.log(`[CloseEnough] Loaded ${data.length} items for ${cat}`);
+                } else {
+                    console.warn(`[CloseEnough] File NOT FOUND: ${catPath}`);
                 }
             } catch (err) {
-                console.error(`Failed to load ${cat}.json`, err);
+                console.error(`[CloseEnough] Failed to load ${cat}.json`, err);
             }
         });
         return mapping;
@@ -159,6 +166,8 @@ class CloseEnoughGame {
         
         // Pick random challenge from category (prevent repeats)
         let items = this.mapping[randomCat] || [];
+        console.log(`[CloseEnough] Spinning for ${randomCat}. Items in mapping: ${items.length}`);
+        
         let availableItems = items.filter(item => !this.askedQuestions[randomCat].has(item.id));
 
         // If no items left in this category, reset the tracking for this category
@@ -168,12 +177,13 @@ class CloseEnoughGame {
         }
 
         if (availableItems.length === 0) {
-            console.error("No items for category", randomCat);
+            console.error(`[CloseEnough] No items for category ${randomCat}`);
             this.currentChallenge = null;
         } else {
             const selected = availableItems[Math.floor(Math.random() * availableItems.length)];
             this.currentChallenge = selected;
             this.askedQuestions[randomCat].add(selected.id);
+            console.log(`[CloseEnough] Selected challenge: ${selected.id}`);
         }
 
         // Delay for spin animation (simulated on client, but we confirm state here)

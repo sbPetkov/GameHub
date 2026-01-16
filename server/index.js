@@ -31,7 +31,7 @@ app.use((req, res, next) => {
 // Serve Images for games
 app.use('/images', express.static(path.join(__dirname, 'Images')));
 app.use('/uploads', express.static(path.join(__dirname, 'data/uploads')));
-app.use('/close-enough-data', express.static(path.join(__dirname, 'data/close_enough')));
+app.use('/close-enough-data', express.static(process.env.CLOSE_ENOUGH_DATA_PATH || path.join(__dirname, 'data/close_enough')));
 
 // Socket.io Setup
 const io = new Server(server, {

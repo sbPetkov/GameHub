@@ -8,9 +8,11 @@ services:
     volumes:
       # Persist the SQLite database file in a data directory
       - ./server_data:/app/data
+      - ./server/data/close_enough:/app/game-content
     environment:
       - PORT=3001
       - JWT_SECRET=ProductionSecretKeyChangeThisToSomethingSecure
+      - CLOSE_ENOUGH_DATA_PATH=/app/game-content
     networks:
       - gamehub-network
 

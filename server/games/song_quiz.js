@@ -74,21 +74,16 @@ class SongQuizGame {
     }
 
     startGame() {
+        console.log(`[SongQuiz] Starting game for room ${this.roomId} with ${this.players.length} players`);
         if (this.players.length < 1) return { error: "Need at least 1 player" };
         
         // Shuffle all available URLs to create a "Deck"
         this.deck = [...this.allSongs].sort(() => 0.5 - Math.random());
-        this.selectedSongs = []; // We will populate this as we buffer/play
-        
-        // We want to queue up enough songs for a "Session" or just infinite? 
-        // Let's queue up 10 for now, or just infinite.
-        // But the UI expects `totalSongs`. Let's say a game is 10 rounds.
-        // If we run out of unique songs, we can re-shuffle or just stop.
-        // The user said: "if the list is finished then we can start from the beginning"
-        
-        // Let's create a game session based on rounds.
+        console.log(`[SongQuiz] Deck initialized with ${this.deck.length} songs`);
+
         this.selectedSongs = [];
         const numSongsNeeded = this.players.length * this.totalRounds;
+        console.log(`[SongQuiz] Creating session with ${numSongsNeeded} total songs (${this.totalRounds} rounds per player)`);
 
         for (let i = 0; i < numSongsNeeded; i++) {
             if (this.deck.length === 0) {
@@ -99,7 +94,7 @@ class SongQuizGame {
                 const url = this.deck.pop();
                 // Generate a temporary ID
                 this.selectedSongs.push({
-                    id: Date.now() + i, // simple ID
+                    id: Date.now() + i + Math.random(), // simple ID
                     url: url,
                     artist: 'Loading...', // Will be fetched
                     title: 'Loading...'
@@ -114,24 +109,29 @@ class SongQuizGame {
         
         this.io.to(this.roomId).emit('game_update', this.getState());
         
-        // Start buffering
+        console.log(`[SongQuiz] State set to BUFFERING. Calling bufferSongs()...`);
         this.bufferSongs();
     }
 
     async bufferSongs() {
         const bufferWindow = 3;
         // Check bounds
-        if (this.currentSongIndex >= this.selectedSongs.length) return;
+        if (this.currentSongIndex >= this.selectedSongs.length) {
+            console.log(`[SongQuiz] bufferSongs: No more songs to buffer (Index ${this.currentSongIndex} >= Total ${this.selectedSongs.length})`);
+            return;
+        }
 
         const songsToBuffer = this.selectedSongs.slice(this.currentSongIndex, this.currentSongIndex + bufferWindow);
-        
+        console.log(`[SongQuiz] bufferSongs: Attempting to buffer ${songsToBuffer.length} songs starting from index ${this.currentSongIndex}`);
+
         for (const song of songsToBuffer) {
             if (!this.downloadPromises[song.id] && !this.downloadedSongs.has(song.id)) {
-                console.log(`[SongQuiz] Buffering song ${song.id} (${song.url})`);
+                console.log(`[SongQuiz] Requesting download for: ${song.url}`);
                 const filename = `song_${song.id}.mp4`;
                 
                 this.downloadPromises[song.id] = videoDownloader.downloadVideo(song.url, this.roomId, filename)
                     .then(({ path, title }) => {
+                        console.log(`[SongQuiz] Download Success for ${song.id}: ${title}`);
                         this.downloadedSongs.add(song.id);
                         
                         // Parse title
@@ -157,6 +157,7 @@ class SongQuizGame {
                         if (this.state === 'BUFFERING' && 
                             this.selectedSongs[this.currentSongIndex] && 
                             this.selectedSongs[this.currentSongIndex].id === song.id) {
+                            console.log(`[SongQuiz] Current song buffered. Starting round!`);
                             this.startRound();
                         }
                     })
@@ -189,6 +190,8 @@ class SongQuizGame {
                             this.bufferSongs();
                         }
                     });
+            } else {
+                console.log(`[SongQuiz] Song ${song.id} is already being downloaded or is finished.`);
             }
         }
     }

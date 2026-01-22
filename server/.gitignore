@@ -5,3 +5,4 @@ logs
 *.log
 data/*
 !data/close_enough/
+!songs.json

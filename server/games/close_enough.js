@@ -80,6 +80,8 @@ class CloseEnoughGame {
             if (this.state !== 'LOBBY' && this.state !== 'GAME_OVER') {
                 // If current player left, force end turn
                 if (this.turnIndex === index) {
+                    // Adjust index back so endTurn() increments to the correct next player
+                    this.turnIndex--;
                     this.endTurn();
                 } else if (this.turnIndex > index) {
                     this.turnIndex--;
@@ -97,6 +99,7 @@ class CloseEnoughGame {
     }
 
     startGame() {
+        if (this.state !== 'LOBBY' && this.state !== 'GAME_OVER') return;
         if (this.players.length < 2) return { error: "Need at least 2 players" };
         
         // Shuffle turn order

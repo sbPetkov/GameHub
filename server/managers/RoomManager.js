@@ -9,6 +9,7 @@ const CodebreakersGame = require('../games/codebreakers');
 const CodebreakersImagesGame = require('../games/codebreakers_images');
 const CodebreakersCustomGame = require('../games/codebreakers_custom');
 const CloseEnoughGame = require('../games/close_enough');
+const SongQuizGame = require('../games/song_quiz');
 const fs = require('fs');
 const path = require('path');
 
@@ -57,6 +58,9 @@ class RoomManager {
                 break;
             case 'close_enough':
                 gameInstance = new CloseEnoughGame(this.io, roomId);
+                break;
+            case 'song_quiz':
+                gameInstance = new SongQuizGame(this.io, roomId);
                 break;
             default:
                 throw new Error("Unknown game type");
@@ -204,6 +208,13 @@ class RoomManager {
                     fs.rmSync(uploadDir, { recursive: true, force: true });
                     console.log(`Cleaned up uploads for room ${roomId}`);
                 }
+                
+                // Cleanup Game Resources (e.g. Song Quiz temporary files)
+                if (typeof room.game.cleanup === 'function') {
+                    room.game.cleanup();
+                    console.log(`Cleaned up resources for room ${roomId}`);
+                }
+
                 this.rooms.delete(roomId);
             } else {
                 // Notify remaining players

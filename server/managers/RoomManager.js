@@ -10,6 +10,7 @@ const CodebreakersImagesGame = require('../games/codebreakers_images');
 const CodebreakersCustomGame = require('../games/codebreakers_custom');
 const CloseEnoughGame = require('../games/close_enough');
 const SongQuizGame = require('../games/song_quiz');
+const MusicQuizGame = require('../games/music_quiz');
 const fs = require('fs');
 const path = require('path');
 
@@ -61,6 +62,9 @@ class RoomManager {
                 break;
             case 'song_quiz':
                 gameInstance = new SongQuizGame(this.io, roomId);
+                break;
+            case 'music_quiz':
+                gameInstance = new MusicQuizGame(this.io, roomId);
                 break;
             default:
                 throw new Error("Unknown game type");

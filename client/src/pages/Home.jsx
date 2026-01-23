@@ -56,6 +56,7 @@ const Home = () => {
     { id: 10, title: 'Codebreakers (Upload)', description: 'Use your own photos!', status: 'Available', color: 'bg-indigo-400', type: 'codebreakers_custom' },
     { id: 11, title: 'Close Enough', description: 'Spin the wheel, guess music & movies!', status: 'Available', color: 'bg-pink-600', type: 'close_enough' },
     { id: 12, title: 'Song Quiz', description: 'Guess the song from a short clip!', status: 'Available', color: 'bg-teal-500', type: 'song_quiz' },
+    { id: 13, title: 'Music Quiz', description: 'Expandable library music quiz!', status: 'Available', color: 'bg-teal-600', type: 'music_quiz' },
     { id: 3, title: 'Tic Tac Toe', description: 'Classic game for two players.', status: 'Available', color: 'bg-green-500', type: 'tictactoe' },
   ];
 

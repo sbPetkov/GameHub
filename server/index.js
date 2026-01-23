@@ -32,6 +32,7 @@ app.use((req, res, next) => {
 app.use('/images', express.static(path.join(__dirname, 'Images')));
 app.use('/uploads', express.static(path.join(__dirname, 'data/uploads')));
 app.use('/close-enough-data', express.static(process.env.CLOSE_ENOUGH_DATA_PATH || path.join(__dirname, 'data/close_enough')));
+app.use('/music-quiz-data', express.static(path.join(__dirname, 'data/music_quiz/videos')));
 app.use('/api/stream', express.static(path.join(__dirname, 'data/temp')));
 
 // Socket.io Setup

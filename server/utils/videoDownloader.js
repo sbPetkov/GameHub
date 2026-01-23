@@ -33,9 +33,15 @@ class VideoDownloader {
      * @param {string} filename - The output filename (e.g. 'song_1.mp4').
      * @returns {Promise<string>} - Resolves with full file path.
      */
-    downloadVideo(url, roomId, filename) {
+    downloadVideo(url, roomId, filename, customOutputDir = null) {
         return new Promise((resolve, reject) => {
-            const outputDir = path.join(this.tempDir, roomId);
+            let outputDir;
+            if (customOutputDir) {
+                outputDir = customOutputDir;
+            } else {
+                outputDir = path.join(this.tempDir, roomId);
+            }
+
             if (!fs.existsSync(outputDir)) {
                 fs.mkdirSync(outputDir, { recursive: true });
             }
@@ -91,6 +97,39 @@ class VideoDownloader {
                     return reject(error);
                 }
                 resolve(stdout.trim());
+            });
+        });
+    }
+
+    getPlaylistInfo(url) {
+        return new Promise((resolve, reject) => {
+            // --flat-playlist: Don't download, just list
+            // -J: Dump JSON
+            exec(`yt-dlp --flat-playlist -J "${url}"`, { maxBuffer: 1024 * 1024 * 10 }, (error, stdout, stderr) => {
+                if (error) {
+                    return reject(error);
+                }
+                try {
+                    const data = JSON.parse(stdout);
+                    if (data.entries) {
+                         // It's a playlist
+                         const videos = data.entries.map(entry => ({
+                             title: entry.title,
+                             url: entry.url || `https://www.youtube.com/watch?v=${entry.id}`,
+                             id: entry.id
+                         }));
+                         resolve(videos);
+                    } else {
+                        // Single video or something else
+                        resolve([{
+                            title: data.title,
+                            url: data.webpage_url || url,
+                            id: data.id
+                        }]);
+                    }
+                } catch (e) {
+                    reject(e);
+                }
             });
         });
     }

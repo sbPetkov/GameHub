@@ -27,9 +27,27 @@ class ImposterGame {
             socketId,
             role: null,
             vote: null,
-            score: 0
+            score: 0,
+            connected: true
         };
         return null;
+    }
+
+    setPlayerStatus(socketId, status) {
+        if (this.players[socketId]) {
+            this.players[socketId].connected = (status === 'connected');
+            
+            // If a player disconnects during voting, check if we can proceed
+            if (status === 'disconnected' && this.state === 'PLAYING') {
+                const allVoted = Object.values(this.players)
+                    .filter(p => p.connected)
+                    .every(p => p.vote);
+                
+                if (allVoted) {
+                    this.resolveVotes();
+                }
+            }
+        }
     }
 
     removePlayer(socketId) {
@@ -149,7 +167,9 @@ class ImposterGame {
         this.votes[voterId] = targetId;
         this.players[voterId].vote = targetId;
 
-        const allVoted = Object.keys(this.players).every(pid => this.votes[pid]);
+        const allVoted = Object.values(this.players)
+            .filter(p => p.connected)
+            .every(p => p.vote);
         
         if (allVoted) {
             this.resolveVotes();

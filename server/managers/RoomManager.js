@@ -114,6 +114,11 @@ class RoomManager {
                 room.game.updatePlayerSocket(oldSocketId, socket.id);
             }
 
+            // Notify game of connection status
+            if (room.game.setPlayerStatus) {
+                room.game.setPlayerStatus(socket.id, 'connected');
+            }
+
             // If host rejoined, update host ID
             if (room.host === oldSocketId) {
                 room.host = socket.id;
@@ -145,6 +150,11 @@ class RoomManager {
         
         socket.join(roomId);
 
+        // Notify game of connection status
+        if (room.game.setPlayerStatus) {
+            room.game.setPlayerStatus(socket.id, 'connected');
+        }
+
         // Notify room
         this.io.to(roomId).emit('room_update', {
             players: room.players,
@@ -164,6 +174,11 @@ class RoomManager {
 
                 // Mark as disconnected but keep in room
                 player.connected = false;
+                
+                // Notify game of connection status
+                if (room.game.setPlayerStatus) {
+                    room.game.setPlayerStatus(socketId, 'disconnected');
+                }
                 
                 // Notify room that player is offline (visual update)
                 this.io.to(roomId).emit('room_update', {

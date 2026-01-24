@@ -28,9 +28,31 @@ class BalderdashGame {
             score: 0,
             definition: null,
             hasSubmitted: false,
-            vote: null
+            vote: null,
+            connected: true
         };
         return null;
+    }
+
+    setPlayerStatus(socketId, status) {
+        if (this.players[socketId]) {
+            this.players[socketId].connected = (status === 'connected');
+            
+            // Check progression if someone disconnects
+            if (status === 'disconnected') {
+                if (this.state === 'INPUT') {
+                    const allSubmitted = Object.values(this.players)
+                        .filter(p => p.connected)
+                        .every(p => p.hasSubmitted);
+                    if (allSubmitted) this.prepareVotingPhase();
+                } else if (this.state === 'VOTING') {
+                    const allVoted = Object.values(this.players)
+                        .filter(p => p.connected)
+                        .every(p => p.vote);
+                    if (allVoted) this.resolveVotes();
+                }
+            }
+        }
     }
 
     removePlayer(socketId) {
@@ -44,8 +66,23 @@ class BalderdashGame {
             this.players[newId] = { ...this.players[oldId], socketId: newId };
             delete this.players[oldId];
             
+            // 1. Update votes made FOR this player (as target)
             for (const voterId in this.votes) {
                 if (this.votes[voterId] === oldId) this.votes[voterId] = newId;
+            }
+
+            // 2. Update vote made BY this player (as voter)
+            if (this.votes[oldId]) {
+                this.votes[newId] = this.votes[oldId];
+                delete this.votes[oldId];
+            }
+
+            // 3. Update definition ownership if in VOTING phase
+            if (this.state === 'VOTING' && this.definitions) {
+                const def = this.definitions.find(d => d.id === oldId);
+                if (def) {
+                    def.id = newId;
+                }
             }
         }
     }
@@ -147,7 +184,10 @@ class BalderdashGame {
         this.players[socketId].definition = this.normalizeText(text);
         this.players[socketId].hasSubmitted = true;
 
-        const allSubmitted = Object.values(this.players).every(p => p.hasSubmitted);
+        const allSubmitted = Object.values(this.players)
+            .filter(p => p.connected)
+            .every(p => p.hasSubmitted);
+
         if (allSubmitted) {
             this.prepareVotingPhase();
         } else {
@@ -165,7 +205,9 @@ class BalderdashGame {
         
         // 2. Player definitions
         Object.values(this.players).forEach(p => {
-            defs.push({ id: p.socketId, text: p.definition });
+            if (p.connected && p.definition) { // Only include if connected or definition exists
+                 defs.push({ id: p.socketId, text: p.definition });
+            }
         });
 
         // Shuffle
@@ -189,7 +231,10 @@ class BalderdashGame {
         this.votes[voterId] = targetId;
         this.players[voterId].vote = targetId;
 
-        const allVoted = Object.keys(this.players).every(pid => this.votes[pid]);
+        const allVoted = Object.values(this.players)
+            .filter(p => p.connected)
+            .every(p => p.vote);
+
         if (allVoted) {
             this.resolveVotes();
         } else {

@@ -45,6 +45,16 @@ const Imposter = ({ socket, roomId, players, initialGameState, currentUser }) =>
 
     // --- RENDER HELPERS ---
 
+    const [customCategoryInput, setCustomCategoryInput] = useState("");
+
+    const handleCustomCategorySubmit = (e) => {
+        e.preventDefault();
+        if (customCategoryInput.trim()) {
+            setCategory(customCategoryInput.trim());
+            setCustomCategoryInput("");
+        }
+    };
+
     const renderLobby = () => (
         <div className="flex flex-col items-center">
             <h2 className="text-2xl font-bold mb-4">Waiting for players...</h2>
@@ -62,7 +72,7 @@ const Imposter = ({ socket, roomId, players, initialGameState, currentUser }) =>
             {isHost && (
                 <div className="mb-6 w-full max-w-md">
                     <label className="block text-sm font-medium text-gray-700 mb-2">Select Category</label>
-                    <div className="grid grid-cols-2 gap-2">
+                    <div className="grid grid-cols-2 gap-2 mb-4">
                         {gameState.categories.map(cat => (
                             <button
                                 key={cat}
@@ -72,6 +82,26 @@ const Imposter = ({ socket, roomId, players, initialGameState, currentUser }) =>
                                 {cat}
                             </button>
                         ))}
+                    </div>
+                    
+                    {/* Custom Category Input */}
+                    <form onSubmit={handleCustomCategorySubmit} className="flex gap-2">
+                        <input
+                            type="text"
+                            value={customCategoryInput}
+                            onChange={(e) => setCustomCategoryInput(e.target.value)}
+                            placeholder="Type a custom category..."
+                            className="flex-1 p-2 border border-gray-300 rounded shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
+                        />
+                        <button 
+                            type="submit"
+                            className="bg-indigo-600 text-white px-4 py-2 rounded shadow hover:bg-indigo-700 transition"
+                        >
+                            Set
+                        </button>
+                    </form>
+                    <div className="mt-2 text-center text-sm text-gray-500">
+                        Current: <span className="font-bold text-indigo-600">{gameState.selectedCategory}</span>
                     </div>
                 </div>
             )}

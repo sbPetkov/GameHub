@@ -250,8 +250,8 @@ class ImposterGame {
                 this.imposterGuess(socketId, moveData.word);
                 break;
             case 'SET_CATEGORY':
-                if (this.categories.includes(moveData.category)) {
-                    this.selectedCategory = moveData.category;
+                if (moveData.category && typeof moveData.category === 'string' && moveData.category.trim().length > 0) {
+                    this.selectedCategory = moveData.category.trim();
                     this.io.to(this.roomId).emit('game_update', this.getState());
                 }
                 break;
